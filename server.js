@@ -12,7 +12,8 @@ const app = express();
 
 // Middlewares
 const allowedOrigins = [
-  'https://nexustecnologia.modernaedificacoes.com.br'
+  'https://nexustecnologia.modernaedificacoes.com.br',
+  // Adicione outras origens permitidas aqui
 ];
 app.use(cors({
   origin: function (origin, callback) {
@@ -29,7 +30,7 @@ app.use(express.json());
 // Conexão ao MongoDB
 mongoose
   .connect(
-    "mongodb://recibos_aroundegg:ded1f2dade8fe8e66e7f67810576e21a2b16f67d@gkgyj.h.filess.io:27018/recibos_aroundegg",
+    process.env.MONGODB_URI, // Use a variável de ambiente para a URI do MongoDB
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -302,6 +303,12 @@ app.get("/records/nextId", async (req, res) => {
 app.get("/db/ip", (req, res) => {
   const dbUri = mongoose.connection.host;
   res.json({ dbIp: dbUri });
+});
+
+// Middleware para lidar com erros
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 app.use("/api/beneficiarios", beneficiariosRouter);
