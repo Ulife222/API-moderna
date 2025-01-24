@@ -33,7 +33,7 @@ app.use(express.json());
 // Conexão ao MongoDB
 mongoose
   .connect(
-    "mongodb://Nexus_positionis:8e9528d3cfce0c35534d00ee1346a4a131a40c8d@9ibg8.h.filess.io:27018/Nexus_positionis",
+    process.env.MONGODB_URI, // Use a variável de ambiente para a URI do MongoDB
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Conectado ao MongoDB"))
