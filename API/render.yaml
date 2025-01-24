@@ -3,8 +3,8 @@ services:
     name: api-moderna
     env: node
     plan: free
-    buildCommand: 'npm install'
-    startCommand: 'npm start'
+    buildCommand: "npm install"
+    startCommand: "npm start"
     envVars:
       - key: MONGODB_URI
         value: YOUR_MONGODB_URI
